@@ -19,6 +19,18 @@ def tbn(data, n):
     return result[: result.index(".") + 3]
 
 
+def writer(file, data):
+    """
+    Writes data to file
+    """
+    with open(file, "w", encoding="utf-8") as f:
+        fieldnames = ["date", "tb2 value"]
+        dictwriter = csv.DictWriter(f, fieldnames=fieldnames)
+        dictwriter.writeheader()
+        for i in data:
+            dictwriter.writerow({"date": i["date"], "tb2 value": i["tb2"]})
+
+
 def answer():
     """
     creates answer csv files
@@ -43,18 +55,8 @@ def answer():
         dam_tbn.append({"date": date, "tb2": tbn(dam_dicn, 2)})
         rtm_tbn.append({"date": date, "tb2": tbn(rtm_dicn, 2)})
         day = "0" + str(int(day) + 1)
+    writer("dam_tb2.csv", dam_tbn)
+    writer("rtm_tb2.csv", rtm_tbn)
 
-    with open("dam_tb2.csv", "w", encoding="utf-8") as f:
-        fieldnames = ["date", "tb2 value"]
-        writer = csv.DictWriter(f, fieldnames=fieldnames)
-        writer.writeheader()
-        for i in dam_tbn:
-            writer.writerow({"date": i["date"], "tb2 value": i["tb2"]})
 
-    with open("rtm_tb2.csv", "w", encoding="utf-8") as f:
-        fieldnames = ["date", "tb2 value"]
-        writer = csv.DictWriter(f, fieldnames=fieldnames)
-        writer.writeheader()
-        for i in rtm_tbn:
-            writer.writerow({"date": i["date"], "tb2 value": i["tb2"]})
 answer()
