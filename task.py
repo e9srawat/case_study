@@ -34,9 +34,10 @@ with open("task_1.csv", "w", encoding="utf-8") as f:
         yyyy = date[-4:]
         mm = date[:2]
         dd = date[3:5]
+        hour = f"0{int(i[0]['Delivery Hour'])-1}"[-2:]
         writer.writerow(
             {
-                "date": f"{yyyy}-{mm}-{dd} {int(i[0]['Delivery Hour'])-1}:00:00",
+                "date": f"{yyyy}-{mm}-{dd} {hour}:00:00",
                 "dam": i[0]["Settlement Point Price"],
                 "rtm": i[1]["Settlement Point Price"],
             }
@@ -62,10 +63,11 @@ with open("task_2.csv", "w", encoding="utf-8") as f:
         yyyy = date[-4:]
         mm = date[:2]
         dd = date[3:5]
+        hour = f"0{int(i[0]['Delivery Hour'])-1}"[-2:]
         intervals = {"1": "00", "2": "15", "3": "30", "4": "45"}
         writer.writerow(
             {
-                "date": f"{yyyy}-{mm}-{dd} {int(i[0]['Delivery Hour'])-1}:{intervals[i[1]['Delivery Interval']]}:00",
+                "date": f"{yyyy}-{mm}-{dd} {hour}:{intervals[i[1]['Delivery Interval']]}:00",
                 "dam": i[0]["Settlement Point Price"],
                 "rtm": i[1]["Settlement Point Price"],
             }
