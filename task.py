@@ -43,6 +43,7 @@ with open("task_1.csv", "w", encoding="utf-8") as f:
             }
         )
 
+# Task2
 with open(RTM_PATH, "r", encoding="utf-8") as f:
     reader = csv.DictReader(f)
     hb_north_rtm = [i for i in reader if i["Settlement Point"] == "HB_NORTH"]
