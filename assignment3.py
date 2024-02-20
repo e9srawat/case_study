@@ -8,34 +8,23 @@ def tbn(data, n):
     """
     calculates the tbn value of data
     """
-    bottom_h = []
-    top_h = []
-    index=[]
-    temp = data["price"]
-    print(data['price'])
-    for _ in range(n):
-        top_h.append(max(temp))
-        index.append(data["price"].index(top_h[-1]))
-        temp = [i for i in data["price"] if i not in top_h]
-        
-    data["price"] = data["price"][:max(index)][1:]
-    
-    for i in top_h:
-        if i in data["price"]:
-          data["price"].remove(i)
-    
-    print(top_h)
-    for _ in range(n):
-        if data["price"]:
-            bottom_h.append(min(data["price"]))
-            data["price"].remove(bottom_h[-1])
-        else:
-            bottom_h.append(0)
-    print(bottom_h)
-            
-    result = str(sum(top_h) - sum(bottom_h))
-    return result[: result.index(".") + 3]
+    prices = data["price"]
+    result =[]
+    for _ in range(2):
+        max_dif=0
+        for i in prices:
+            for j in prices[prices.index(i)+1:]:
+                if j-i>max_dif:
+                    max_dif = j-i
+                    t_b=(j,i)
+        result.append(t_b)
+        for i in t_b:
+            prices.remove(i)
 
+    t=[i[0] for i in result]
+    b=[i[1] for i in result]
+    tbn=str(sum(t)-sum(b))
+    return tbn[: tbn.index(".") + 3]
 
 def writer(file, data):
     """
